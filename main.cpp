@@ -1,7 +1,6 @@
 #include <iostream>
-using namespace std;
 
 int main() {
-    std::cout << "Running!" << endl;
+    std::cout << "Running!";
     return 0;
 }
