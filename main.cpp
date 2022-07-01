@@ -1,6 +1,5 @@
-#include <iostream>
-
+#include <stdio.h>
 int main() {
-    std::cout << "Running!";
-    return 0;
+   printf("Running!");
+   return 0;
 }

@@ -1,4 +1,4 @@
 main.o: main.cpp
-	g++ -c main.cpp
-	g++ -o main main.o
+	gcc -c main.cpp
+	gcc -o main main.o
 	
