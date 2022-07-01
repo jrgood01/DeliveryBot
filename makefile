@@ -1,2 +1,4 @@
-g++ -c main.cpp
-g++ -o robot_service main.o
+main.o: main.cpp
+	g++ -c main.cpp
+	g++ -o main main.o
+	
