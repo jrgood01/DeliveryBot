@@ -14,9 +14,9 @@ sensor_axis_t* get_data(int device) {
 void upload_accelerometer_data(int device) {
     sensor_axis_t* data = get_data(device);
     pthread_mutex_lock(&sensor_data_mutex);
-    sensor_data[0] = data->x;
-    sensor_data[1] = data->y;
-    sensor_data[2] = data->z;
+    sensor_data->x = data->x;
+    sensor_data->y = data->y;
+    sensor_data->z = data->z;
     pthread_mutex_unlock(&sensor_data_mutex);
 }
 
@@ -24,9 +24,9 @@ void upload_accelerometer_data(int device) {
 sensor_axis_t read_accelerometer_data(int device) {
     sensor_axis_t data;
     pthread_mutex_lock(&sensor_data_mutex);
-    data.x = sensor_data[0];
-    data.y = sensor_data[1];
-    data.z = sensor_data[2];
+    data->x = sensor_data->x;
+    data->y = sensor_data->y;
+    data->z = sensor_data->z;
     pthread_mutex_unlock(&sensor_data_mutex);
     return data;
 }
