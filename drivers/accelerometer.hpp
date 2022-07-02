@@ -13,14 +13,14 @@
 #define GSENSOR_IOCTL_APP_SET_RATE      _IOW(GSENSOR_IOCTL_MAGIC, 0x10, short)
 #define GSENSOR_IOCTL_GET_CALIBRATION   _IOR(GSENSOR_IOCTL_MAGIC, 0x11, int[3])
 
-typedef struct sensor_axis {
+extern typedef struct sensor_axis {
     int x;
     int y;
     int z;
 } sensor_axis_t;
 
-sensor_axis_t* get_data(int device);
-sensor_axis_t* read_accelerometer_data(int device);
-void update_accelerometer_data(int device);
+extern sensor_axis_t* get_data(int device);
+extern sensor_axis_t* read_accelerometer_data(int device);
+extern void update_accelerometer_data(int device);
 
 #endif
