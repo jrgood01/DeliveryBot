@@ -8,11 +8,10 @@ int main() {
     printf("Got device %d\n", device);
     while (1) {
         struct sensor_axis* data = get_data(device);
-       /*
+
         printf("X: %d\n", data->x);
         printf("Y: %d\n", data->y);
         printf("Z: %d\n", data->z);
         printf("\n");
-        */
     }
 }
