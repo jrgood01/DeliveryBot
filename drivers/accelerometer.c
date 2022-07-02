@@ -23,7 +23,7 @@ void upload_accelerometer_data(int device) {
 }
 
 //Read acceletometer data from mutex protected memory
-sensor_axis_t read_accelerometer_data(int device) {
+sensor_axis_t* read_accelerometer_data(int device) {
     sensor_axis_t* data = malloc(sizeof(int) * 3);
     pthread_mutex_lock(&sensor_data_mutex);
     data->x = sensor_data->x;
