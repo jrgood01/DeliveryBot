@@ -1,3 +1,6 @@
+#ifndef __ACCELEROMETER_H_
+#define __ACCELEROMETER_H_
+
 //Got this header from: https://docs.khadas.com/linux/vim3/GsensorUsage.html
 #define GBUFF_SIZE                12
 #define GSENSOR_IOCTL_MAGIC       'a'
@@ -17,3 +20,5 @@ typedef struct sensor_axis {
 } sensor_axis_t;
 
 sensor_axis_t* get_data(int device);
+
+#ndif
