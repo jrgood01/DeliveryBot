@@ -21,4 +21,4 @@ typedef struct sensor_axis {
 
 sensor_axis_t* get_data(int device);
 
-#ndif
+#endif
