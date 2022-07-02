@@ -10,10 +10,10 @@
 #define GSENSOR_IOCTL_APP_SET_RATE      _IOW(GSENSOR_IOCTL_MAGIC, 0x10, short)
 #define GSENSOR_IOCTL_GET_CALIBRATION   _IOR(GSENSOR_IOCTL_MAGIC, 0x11, int[3])
 
-struct sensor_axis {
+typedef struct sensor_axis {
     int x;
     int y;
     int z;
-};
+} sensor_axis_t;
 
-struct sensor_axis* get_data(int device);
+sensor_axis_t* get_data(int device);
