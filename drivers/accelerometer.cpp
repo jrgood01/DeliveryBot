@@ -2,8 +2,8 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include "accelerometer.h"
-#include "../mutex.h"
+#include "accelerometer.hpp"
+#include "../mutex.hpp"
 
 //Get the data from the accelerometer
 sensor_axis_t* get_data(int device) {

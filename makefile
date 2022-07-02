@@ -1,4 +1,4 @@
-CC = gcc
+CC = g++
 CFLAGS = -g -Wall
 
 default: main
@@ -6,8 +6,8 @@ default: main
 main: main.o accelerometer.o
 	$(CC) $(CFLAGS) -o main main.o accelerometer.o
 
-main.o: main.c drivers/accelerometer.h mutex.h
+main.o: main.cpp drivers/accelerometer.hpp mutex.hpp devices.hpp
 	$(CC) $(CFLAGS) -c main.c
 
-accelerometer.o: drivers/accelerometer.c drivers/accelerometer.h mutex.h
+accelerometer.o: drivers/accelerometer.cpp drivers/accelerometer.hpp mutex.hpp
 	$(CC) $(CFLAGS) -c drivers/accelerometer.c

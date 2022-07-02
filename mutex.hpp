@@ -2,9 +2,8 @@
 #define __MUTEX_H
 
 #include <pthread.h>
-#include "drivers/accelerometer.h"
+#include "drivers/accelerometer.hpp"
 
-sensor_axis_t* sensor_data;
 pthread_mutex_t sensor_data_mutex;
 
 #endif

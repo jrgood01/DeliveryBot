@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
-#include "../drivers/accelerometer.h"
+#include "../drivers/accelerometer.hpp"
 int main() {
     char *gsensor_device = "/dev/accel";
     int device = open(gsensor_device , O_RDWR);
