@@ -16,4 +16,4 @@ struct sensor_axis {
     int z;
 };
 
-char* get_data(int device);
+struct sensor_axis get_data(int device);
