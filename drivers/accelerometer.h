@@ -20,5 +20,7 @@ typedef struct sensor_axis {
 } sensor_axis_t;
 
 sensor_axis_t* get_data(int device);
+sensor_axis_t* read_accelerometer_data(int device);
+void update_accelerometer_data(int device);
 
 #endif
