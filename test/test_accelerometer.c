@@ -4,6 +4,7 @@
 #include "../drivers/accelerometer.h"
 int main() {
     int device = open("/dev/accelerometer", O_RDWR);
+    printf("Got device %d\n", device);
     while (1) {
         struct sensor_axis* data = get_data(device);
         printf("X: %d\n", data->x);
