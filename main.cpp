@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <pthread.h>
-#include <cstdlib.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include "drivers/accelerometer.hpp"
 #include "mutex.hpp"

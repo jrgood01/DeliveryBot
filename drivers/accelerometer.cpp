@@ -1,7 +1,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <pthread.h>
-#include <cstdlib.h>
+#include <stdlib.h>
 #include "accelerometer.hpp"
 #include "../mutex.hpp"
 
