@@ -10,7 +10,7 @@ Accelerometer::Accelerometer() {
     pthread_mutex_init(&this->sensor_data_mutex, NULL);
     this->device_id = open(this->ACCELEROMETER_DEVICE_STRING, O_RDWR);
     if(this->device_id < 0) {
-        throw std::system_error("Failed to open accelerometer device")
+        //throw std::system_error("Failed to open accelerometer device")
     }
 };
 
