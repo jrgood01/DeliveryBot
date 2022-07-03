@@ -55,7 +55,7 @@ int* Accelerometer::read_accelerometer_data() {
  */
 static void* Accelerometer::update_on_interval(useconds_t interval) {
     while(1) {
-        this->update_accelerometer_data();
+        update_accelerometer_data();
         usleep(interval);
     }
 };
