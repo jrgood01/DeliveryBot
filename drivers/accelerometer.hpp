@@ -31,7 +31,6 @@ public:
     int z;
     Accelerometer();
     int *read_accelerometer_data(int device);
-    void *update_on_interval(unsigned int* interval);
     void begin_update_on_interval(unsigned int* interval);
 };
 
