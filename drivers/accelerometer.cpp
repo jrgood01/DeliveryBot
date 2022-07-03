@@ -29,7 +29,7 @@ int* Accelerometer::get_data() {
  * Writes the current accelerometer data into the buffer
  */
 void Accelerometer::update_accelerometer_data() {
-    int* data = get_data();
+    int* data = this->get_data();
     pthread_mutex_lock(&this->sensor_data_mutex);
     x = data[0];
     y = data[1];
@@ -53,10 +53,10 @@ int* Accelerometer::read_accelerometer_data() {
 /*
  * helper method to update accelerometer buffer on interval
  */
-void* Accelerometer::update_on_interval(useconds_t interval) {
+void* Accelerometer::update_on_interval() {
     while(1) {
         update_accelerometer_data();
-        usleep(interval);
+        usleep(this->update_interval);
     }
 };
 
@@ -65,6 +65,7 @@ void* Accelerometer::update_on_interval(useconds_t interval) {
  * @param interval the interval in microseconds
  */
 void Accelerometer::begin_update_on_interval(useconds_t interval) {
+    this->update_interval = interval;
     typedef void * (*UPDATE_PTR)(void*); //Define type function pointer to void*()
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);

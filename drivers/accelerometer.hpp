@@ -25,10 +25,11 @@ private:
     pthread_mutex_t sensor_data_mutex;
     const char* ACCELEROMETER_DEVICE_STRING = "/dev/accel";
     int device_id;
+    int update_interval=1000;
 public:
-    static int x;
-    static int y;
-    static int z;
+    int x;
+    int y;
+    int z;
     Accelerometer();
     int* read_accelerometer_data();
     void begin_update_on_interval(useconds_t interval);
