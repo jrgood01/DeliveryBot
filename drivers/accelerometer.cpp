@@ -31,9 +31,9 @@ int* Accelerometer::get_data() {
 void Accelerometer::update_accelerometer_data() {
     int* data = this->get_data();
     pthread_mutex_lock(&this->sensor_data_mutex);
-    x = data[0];
-    y = data[1];
-    z = data[2];
+    this->x = data[0];
+    this->y = data[1];
+    this->z = data[2];
     pthread_mutex_unlock(&this->sensor_data_mutex);
 }
 
@@ -43,9 +43,9 @@ void Accelerometer::update_accelerometer_data() {
 int* Accelerometer::read_accelerometer_data() {
     int data[3];
     pthread_mutex_lock(&this->sensor_data_mutex);
-    data[0] = x;
-    data[1] = y;
-    data[2] = z;
+    data[0] = this->x;
+    data[1] = this->y;
+    data[2] = this->z;
     pthread_mutex_unlock(&this->sensor_data_mutex);
     return data;
 }
