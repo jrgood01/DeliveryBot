@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include <system_error>
+#include <unistd.h>
 #include "accelerometer.hpp"
 
 Accelerometer::Accelerometer() {
@@ -30,9 +31,9 @@ int* Accelerometer::get_data() {
 void Accelerometer::update_accelerometer_data() {
     int* data = get_data();
     pthread_mutex_lock(&this->sensor_data_mutex);
-    this->x = data->x;
-    this->y = data->y;
-    this->z = data->z;
+    this->x = data[0];
+    this->y = data[1];
+    this->z = data[2];
     pthread_mutex_unlock(&this->sensor_data_mutex);
 }
 
@@ -54,7 +55,7 @@ int* Accelerometer::read_accelerometer_data() {
  */
 void Accelerometer::update_on_interval(unsigned int* interval) {
     while(1) {
-        update_Accelerometer_data();
+        this->update_Accelerometer_data();
         usleep(interval);
     }
 };
