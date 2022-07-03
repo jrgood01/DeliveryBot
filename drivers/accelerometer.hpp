@@ -18,7 +18,7 @@
 
 class Accelerometer {
 private:
-    void update_accelerometer_data();
+    static void update_accelerometer_data();
     static void* update_on_interval(useconds_t interval);
     int* get_data();
     pthread_t update_thread_id;
