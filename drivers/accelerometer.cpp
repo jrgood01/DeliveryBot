@@ -53,7 +53,7 @@ int* Accelerometer::read_accelerometer_data() {
 /*
  * helper method to update accelerometer buffer on interval
  */
-void Accelerometer::update_on_interval(useconds_t interval) {
+void* Accelerometer::update_on_interval(useconds_t interval) {
     while(1) {
         this->update_accelerometer_data();
         usleep(interval);
@@ -64,7 +64,7 @@ void Accelerometer::update_on_interval(useconds_t interval) {
  * Updates the Accelerometer async on a specified interval
  * @param interval the interval in microseconds
  */
-void* Accelerometer::begin_update_on_interval(useconds_t interval) {
+void Accelerometer::begin_update_on_interval(useconds_t interval) {
     typedef void * (*UPDATE_PTR)(void*); //Define type function pointer to void*()
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);
