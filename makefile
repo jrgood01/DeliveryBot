@@ -6,7 +6,7 @@ default: main
 main: main.o accelerometer.o
 	$(CC) $(CFLAGS) -o main main.o accelerometer.o
 
-test_accelerometer:
+test_accelerometer: test_accelerometer.o accelerometer.o
 	$(CC) $(CFLAGS) -o test_accelerometer test_accelerometer.o accelerometer.o
 main.o: main.cpp drivers/accelerometer.hpp
 	$(CC) $(CFLAGS) -c main.cpp
