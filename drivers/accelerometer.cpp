@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include "accelerometer.hpp"
-#include "../mutex.hpp"
 #include "../devices.hpp"
 
 Accelerometer:Accelerometer() {
