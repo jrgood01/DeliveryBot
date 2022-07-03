@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdexcept>
+#include <system_error>
 #include "accelerometer.hpp"
 
 Accelerometer::Accelerometer() {
@@ -17,7 +18,7 @@ Accelerometer::Accelerometer() {
  * Gets data directly from the accelerometer
  * @return an array containing 3 ints: x, y, z
  */
-accelerometer::get_data() {
+Accelerometer::get_data() {
     int* data = (int*) malloc(sizeof(int) * 3);
     ioctl(device, GSENSOR_IOCTL_GETDATA, data);
     return data;
