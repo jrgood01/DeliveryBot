@@ -19,7 +19,7 @@
 class Accelerometer {
 private:
     void update_accelerometer_data();
-    void update_on_interval(unsigned int* interval);
+    void update_on_interval(useconds_t interval);
     int* get_data();
     pthread_t update_thread_id;
     pthread_mutex_t sensor_data_mutex;
@@ -31,7 +31,7 @@ public:
     int z;
     Accelerometer();
     int* read_accelerometer_data();
-    void begin_update_on_interval(unsigned int* interval);
+    void begin_update_on_interval(useconds_t interval);
 };
 
 #endif
