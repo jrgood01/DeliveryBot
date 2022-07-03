@@ -54,7 +54,7 @@ int* Accelerometer::read_accelerometer_data() {
  * helper method to update accelerometer buffer on interval
  */
 static void *Accelerometer::update_on_interval(void* p) {
-    Accelerometer *acc = (*Accelerometer)p
+    Accelerometer *acc = (*Accelerometer) p;
     while(1) {
         acc->update_accelerometer_data();
         usleep(acc->update_interval);
