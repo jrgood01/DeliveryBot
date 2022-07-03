@@ -19,16 +19,16 @@
 class Accelerometer {
 private:
     void update_accelerometer_data();
-    void* update_on_interval(useconds_t interval);
+    static void* update_on_interval(useconds_t interval);
     int* get_data();
     pthread_t update_thread_id;
     pthread_mutex_t sensor_data_mutex;
     const char* ACCELEROMETER_DEVICE_STRING = "/dev/accel";
     int device_id;
 public:
-    int x;
-    int y;
-    int z;
+    static int x;
+    static int y;
+    static int z;
     Accelerometer();
     int* read_accelerometer_data();
     void begin_update_on_interval(useconds_t interval);

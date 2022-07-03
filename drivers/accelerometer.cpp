@@ -53,7 +53,7 @@ int* Accelerometer::read_accelerometer_data() {
 /*
  * helper method to update accelerometer buffer on interval
  */
-void* Accelerometer::update_on_interval(useconds_t interval) {
+static void* Accelerometer::update_on_interval(useconds_t interval) {
     while(1) {
         this->update_accelerometer_data();
         usleep(interval);
@@ -69,7 +69,7 @@ void Accelerometer::begin_update_on_interval(useconds_t interval) {
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);
     }
-    if (pthread_create(&this->update_thread_id, NULL, (UPDATE_PTR) &this::update_on_interval,this)) {
-        perror("could not create thread for accelerometer update")
+    if (pthread_create(&this->update_thread_id, NULL, &this::update_on_interval, &this)) {
+        perror("could not create thread for accelerometer update");
     }
 };
