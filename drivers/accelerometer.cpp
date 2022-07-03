@@ -39,7 +39,7 @@ void Accelerometer::update_accelerometer_data() {
 /*
  * Read Accelerometer data from the buffer
 */
-void Accelerometer::read_accelerometer_data() {
+int* Accelerometer::read_accelerometer_data() {
     int data[3];
     pthread_mutex_lock(&this->sensor_data_mutex);
     data[0] = this->x;

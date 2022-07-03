@@ -30,7 +30,7 @@ public:
     int y;
     int z;
     Accelerometer();
-    int[] read_accelerometer_data(int device);
+    int* read_accelerometer_data(int device);
     void begin_update_on_interval(unsigned int* interval);
 };
 
