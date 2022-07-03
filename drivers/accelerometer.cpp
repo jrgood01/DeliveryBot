@@ -2,34 +2,73 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdexcept>
 #include "accelerometer.hpp"
 #include "../mutex.hpp"
 #include "../devices.hpp"
 
-//Get the data from the accelerometer
-sensor_axis_t* get_data(int device) {
-    sensor_axis_t* data = (sensor_axis_t*) malloc(sizeof(int) * 3);
+Accelerometer:Accelerometer() {
+    pthread_mutex_init(&this->sensor_data_mutex, NULL);
+    this->device_id = open(this->ACCELEROMETER_DEVICE_STRING, O_RDWR);
+    if(this->device_id < 0) {
+        throw std::system_error("Failed to open accelerometer device")
+    }
+};
+
+/*
+ * Gets data directly from the accelerometer
+ * @return an array containing 3 ints: x, y, z
+ */
+accelerometer:get_data() {
+    int* data = (int*) malloc(sizeof(int) * 3);
     ioctl(device, GSENSOR_IOCTL_GETDATA, data);
     return data;
 }
 
-//Write accelerometer data into mutex protected memory
-void update_accelerometer_data(int device) {
-    sensor_axis_t* data = get_data(device);
-    pthread_mutex_lock(&sensor_data_mutex);
-    sensor_data->x = data->x;
-    sensor_data->y = data->y;
-    sensor_data->z = data->z;
-    pthread_mutex_unlock(&sensor_data_mutex);
+/*
+ * Writes the current accelerometer data into the buffer
+ */
+Accelerometer:update_accelerometer_data() {
+    int* data = get_data(device);
+    pthread_mutex_lock(&this->sensor_data_mutex);
+    this->x = data->x;
+    this->y = data->y;
+    this->z = data->z;
+    pthread_mutex_unlock(&this->sensor_data_mutex);
 }
 
-//Read accelerometer data from mutex protected memory
-sensor_axis_t* read_accelerometer_data(int device) {
-    sensor_axis_t* data = (sensor_axis_t*) malloc(sizeof(int) * 3);
-    pthread_mutex_lock(&sensor_data_mutex);
-    data->x = sensor_data->x;
-    data->y = sensor_data->y;
-    data->z = sensor_data->z;
-    pthread_mutex_unlock(&sensor_data_mutex);
+/*
+ * Read Accelerometer data from the buffer
+*/
+Accelerometer:read_accelerometer_data() {
+    int data[3];
+    pthread_mutex_lock(&this->sensor_data_mutex);
+    data[0] = this->x;
+    data[1] = this->y;
+    data[2] = this->z;
+    pthread_mutex_unlock(&this->sensor_data_mutex);
     return data;
 }
+
+/*
+ * helper method to update accelerometer buffer on interval
+ */
+Accelerometer:update_on_interval(unsigned int* interval) {
+    while(1) {
+        update_Accelerometer_data();
+        usleep(interval);
+    }
+};
+
+/*
+ * Updates the Accelerometer async on a specified interval
+ * @param interval the interval in microseconds
+ */
+Accelerometer:begin_update_on_interval(unsigned int* interval) {
+    if (update_thread_id) {
+        pthread_cancel(this->update_thread_id)
+    }
+    if (pthread_create(&this->update_thread_id, NULL, this->update_on_interval, "Accelerometer update thread")) {
+        perror("could not create thread for accelerometer update")
+    }
+};
