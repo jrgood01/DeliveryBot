@@ -64,7 +64,7 @@ void Accelerometer::update_on_interval(useconds_t interval) {
  * Updates the Accelerometer async on a specified interval
  * @param interval the interval in microseconds
  */
-void Accelerometer::begin_update_on_interval(useconds_t interval) {
+void* Accelerometer::begin_update_on_interval(useconds_t interval) {
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);
     }
