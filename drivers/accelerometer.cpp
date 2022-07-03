@@ -69,8 +69,7 @@ void Accelerometer::begin_update_on_interval(useconds_t interval) {
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);
     }
-    if (pthread_create(&this->update_thread_id, NULL, (UPDATE_PTR)&this::update_on_interval,
-                       "Accelerometer update thread")) {
+    if (pthread_create(&this->update_thread_id, NULL, (UPDATE_PTR) &this::update_on_interval,this)) {
         perror("could not create thread for accelerometer update")
     }
 };
