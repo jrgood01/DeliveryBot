@@ -20,7 +20,7 @@ Accelerometer::Accelerometer() {
  */
 int* Accelerometer::get_data() {
     int* data = (int*) malloc(sizeof(int) * 3);
-    ioctl(device, GSENSOR_IOCTL_GETDATA, data);
+    ioctl(this->device_id, GSENSOR_IOCTL_GETDATA, data);
     return data;
 }
 
@@ -28,7 +28,7 @@ int* Accelerometer::get_data() {
  * Writes the current accelerometer data into the buffer
  */
 void Accelerometer::update_accelerometer_data() {
-    int* data = get_data(device);
+    int* data = get_data();
     pthread_mutex_lock(&this->sensor_data_mutex);
     this->x = data->x;
     this->y = data->y;
@@ -65,7 +65,7 @@ void Accelerometer::update_on_interval(unsigned int* interval) {
  */
 void Accelerometer::begin_update_on_interval(unsigned int* interval) {
     if (update_thread_id) {
-        pthread_cancel(this->update_thread_id)
+        pthread_cancel(this->update_thread_id);
     }
     if (pthread_create(&this->update_thread_id, NULL, this->update_on_interval, "Accelerometer update thread")) {
         perror("could not create thread for accelerometer update")
