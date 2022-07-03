@@ -29,8 +29,9 @@ public:
     int x;
     int y;
     int z;
-    accelerometer();
-    sensor_axis_t *read_accelerometer_data(int device);
+    Accelerometer();
+    int *read_accelerometer_data(int device);
     void begin_update_on_interval(unsigned int* interval)
-}
+};
+
 #endif

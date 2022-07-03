@@ -6,6 +6,6 @@
 #include "drivers/accelerometer.hpp"
 
 int main() {
-    Accelerometer accelerometer = new accelerometer();
+    Accelerometer accelerometer = new Accelerometer();
 
 }
