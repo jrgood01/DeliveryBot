@@ -67,7 +67,6 @@ void *Accelerometer::update_on_interval(void* p) {
  */
 void Accelerometer::begin_update_on_interval(useconds_t interval) {
     this->update_interval = interval;
-    typedef void * (*UPDATE_PTR)(void*); //Define type function pointer to void*()
     if (update_thread_id) {
         pthread_cancel(this->update_thread_id);
     }
