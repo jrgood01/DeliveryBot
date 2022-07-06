@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <iostream>
 
 #include "global_state.h"
 #include "drivers/Accelerometer.h"
@@ -34,5 +35,6 @@ void run_server() {
 
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
+    std::cout << "Starting Server";
     run_server();
 }
