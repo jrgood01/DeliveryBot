@@ -21,7 +21,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-test
         )
 
-target_include_directories(${project_name}-lib PUBLIC src src/drivers)
+target_include_directories(${project_name}-lib PUBLIC src)
 
 ## add executables
 
