@@ -3,7 +3,7 @@ set(CMAKE_CXX_FLAGS -pthread)
 
 project(DeliveryBot LANGUAGES CXX)
 
-target_link_libraries(${project_name}-lib
+target_link_libraries(${project_name}
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-test
         )
