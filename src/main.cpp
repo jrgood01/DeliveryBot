@@ -4,8 +4,8 @@
 #include <fcntl.h>
 
 #include "global_state.h"
-
+#include "Accelerometer.h"
 
 int main() {
-    robot_accelerometer = accelerometer();
+    robot_accelerometer = new Accelerometer();
 }
