@@ -1,9 +1,17 @@
 cmake_minimum_required(VERSION 3.16)
 project(DeliveryBot LANGUAGES CXX)
 
+target_sources(${PROJECT_NAME}
+        PRIVATE
+        drivers/Accelerometer.cpp
+
+        PUBLIC
+        main.cpp
+)
+
 add_executable(main 
-    DeliveryBot/main.cpp,
-    DeliveryBot/drivers/Accelerometer.cpp,
-    DeliveryBot/global_state.h,
-    DeliveryBot/drivers/Accelerometer.h
+    ${PROJECT_SOURCE_DIR}/DeliveryBot/main.cpp,
+    ${PROJECT_SOURCE_DIR}/DeliveryBot/drivers/Accelerometer.cpp,
+    ${PROJECT_SOURCE_DIR}/DeliveryBot/global_state.h,
+    ${PROJECT_SOURCE_DIR}/DeliveryBot/drivers/Accelerometer.h
 )
