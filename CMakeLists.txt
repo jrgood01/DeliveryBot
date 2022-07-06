@@ -11,10 +11,7 @@ add_library(${project_name}-lib
         src/drivers/Accelerometer.h
         src/global_state.h
         )
-target_include_directories(${project_name-lib}
-        src/
-        src/drivers
-        )
+
 ## link libs
 
 find_package(oatpp 1.3.0 REQUIRED)
@@ -24,7 +21,7 @@ target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp-test
         )
 
-target_include_directories(${project_name}-lib PUBLIC src)
+target_include_directories(${project_name}-lib PUBLIC src src/drivers)
 
 ## add executables
 
