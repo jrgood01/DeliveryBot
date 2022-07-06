@@ -11,7 +11,7 @@ target_include_directories(main
         src/api)
 
 add_executable(test_accelerometer test/test_accelerometer.cpp src/drivers/Accelerometer.cpp)
-target_include_directories(main
+target_include_directories(test_accelerometer
         PRIVATE
         src/
         src/drivers
