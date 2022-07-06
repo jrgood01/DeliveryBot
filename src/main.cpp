@@ -11,10 +11,15 @@
 #include "oatpp/network/Server.hpp"
 #include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 
+#include "api/controller/StaticContent.hpp"
+
 //Boilerplate form oatpp
 void run_server() {
     /* Create Router for HTTP requests routing */
     auto router = oatpp::web::server::HttpRouter::createShared();
+
+    /* Route GET - "/hello" requests to Handler */
+    router->route("GET", "/hello", std::make_shared<StaticContentController>());
 
     /* Create HTTP connection handler with router */
     auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
@@ -26,8 +31,8 @@ void run_server() {
     /* Create server which takes provided TCP connections and passes them to HTTP connection handler */
     oatpp::network::Server server(connectionProvider, connectionHandler);
 
-    /* Print info about server port */
-    OATPP_LOGI("Robot control server", "Server running on port %s", connectionProvider->getProperty("port").getData());
+    /* Priny info about server port */
+    OATPP_LOGI("Robot Control", "Server running on port %s", connectionProvider->getProperty("port").getData());
 
     /* Run server */
     server.run();
@@ -35,5 +40,8 @@ void run_server() {
 
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
-    run_server();
+    oatpp::base::Environment::init();
+    run();
+    oatpp::base::Environment::destroy();
+    return 0;
 }
