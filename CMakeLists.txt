@@ -11,6 +11,7 @@ target_link_libraries(${project_name}
 
 add_executable(main src/main.cpp src/drivers/Accelerometer.cpp)
 target_include_directories(main
+        PUBLIC
         PRIVATE
         src/
         src/drivers
@@ -18,6 +19,7 @@ target_include_directories(main
 
 add_executable(test_accelerometer test/test_accelerometer.cpp src/drivers/Accelerometer.cpp)
 target_include_directories(test_accelerometer
+        PUBLIC
         PRIVATE
         src/
         src/drivers
