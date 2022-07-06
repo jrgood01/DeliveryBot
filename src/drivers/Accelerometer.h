@@ -26,11 +26,13 @@ private:
     const char* ACCELEROMETER_DEVICE_STRING = "/dev/accel";
     int device_id;
     int update_interval=1000;
-public:
     int x;
     int y;
     int z;
+
+public:
     Accelerometer();
+
     int* read_accelerometer_data();
     void begin_update_on_interval(useconds_t interval);
 };
