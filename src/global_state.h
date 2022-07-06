@@ -1,4 +1,4 @@
-#include "drivers/Accelerometer.hpp"
+#include "Accelerometer.h"
 
 #ifndef __GLOBAL_STATE_H_
 #define __GLOBAL_STATE_H_
