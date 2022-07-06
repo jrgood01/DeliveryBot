@@ -5,8 +5,8 @@ project(DeliveryBot LANGUAGES CXX)
 
 find_package(oatpp 1.3.0 REQUIRED)
 target_link_libraries(${project_name}
-        PUBLIC oatpp::oatpp
-        PUBLIC oatpp::oatpp-test
+        oatpp::oatpp
+        oatpp::oatpp-test
         )
 
 target_include_directories(${project_name}-lib PUBLIC src)
