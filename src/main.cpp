@@ -35,6 +35,5 @@ void run_server() {
 
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
-    std::cout << "Starting Server";
     run_server();
 }
