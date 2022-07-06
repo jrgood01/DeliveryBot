@@ -12,7 +12,6 @@ add_library(${project_name}-lib
         src/global_state.h
         )
 target_include_directories(${project_name-lib}
-        PUBLIC
         src/
         src/drivers
         )
