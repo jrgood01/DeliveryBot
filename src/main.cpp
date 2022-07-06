@@ -7,5 +7,5 @@
 #include "Accelerometer.h"
 
 int main() {
-    robot_accelerometer = new Accelerometer();
+    Accelerometer* robot_accelerometer = new Accelerometer();
 }
