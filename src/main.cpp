@@ -41,7 +41,7 @@ void run_server() {
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
     oatpp::base::Environment::init();
-    run();
+    run_server();
     oatpp::base::Environment::destroy();
     return 0;
 }
