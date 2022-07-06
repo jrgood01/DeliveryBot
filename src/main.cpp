@@ -19,7 +19,7 @@ void run_server() {
     auto router = oatpp::web::server::HttpRouter::createShared();
 
     /* Route GET - "/hello" requests to Handler */
-    router->route("GET", "/hello", std::make_shared<StaticContentController>());
+    router->route("GET", "/home", std::make_shared<StaticContentController>());
 
     /* Create HTTP connection handler with router */
     auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
