@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "../drivers/Accelerometer.hpp"
+#include "Accelerometer.h"
 int main() {
     Accelerometer* accelerometer = new Accelerometer();
     accelerometer->begin_update_on_interval(1000);
