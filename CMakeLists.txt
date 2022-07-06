@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD 11)
 add_library(${project_name}-lib
         src/drivers/Accelerometer.cpp
         src/drivers/Accelerometer.h
-        src/global_state.h
         )
 
 ## link libs
