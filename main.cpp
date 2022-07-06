@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-#include "drivers/accelerometer.hpp"
+#include "drivers/Accelerometer.hpp"
+#include "global_state.hpp"
 
 int main() {
-    Accelerometer accelerometer();
-
+    robot_accelerometer = accelerometer();
 }
