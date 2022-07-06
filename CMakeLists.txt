@@ -1,26 +1,48 @@
-cmake_minimum_required(VERSION 3.16)
-set(CMAKE_CXX_FLAGS -pthread)
+cmake_minimum_required(VERSION 3.1)
 
-project(DeliveryBot LANGUAGES CXX)
+set(project_name my-project) ## rename your project here
+
+project(${project_name})
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_library(${project_name}-lib
+        src/drivers/Accelerometer.cpp
+        src/drivers/Accelerometer.h
+        src/global_state.h
+        )
+
+## link libs
 
 find_package(oatpp 1.3.0 REQUIRED)
-target_link_libraries(${project_name}
+
+target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-test
         )
 
-add_executable(main src/main.cpp src/drivers/Accelerometer.cpp)
-target_include_directories(main
-        PUBLIC
-        PRIVATE
-        src/
-        src/drivers
-        src/api)
+target_include_directories(${project_name}-lib PUBLIC src)
 
-add_executable(test_accelerometer test/test_accelerometer.cpp src/drivers/Accelerometer.cpp)
-target_include_directories(test_accelerometer
-        PUBLIC
-        PRIVATE
-        src/
-        src/drivers
-        src/api)
+## add executables
+
+add_executable(${project_name}-exe
+        src/main.cpp
+        )
+target_link_libraries(${project_name}-exe ${project_name}-lib)
+add_dependencies(${project_name}-exe ${project_name}-lib)
+
+add_executable(${project_name}-test
+        test/test_accelerometer.cpp
+        )
+
+target_link_libraries(${project_name}-test ${project_name}-lib)
+add_dependencies(${project_name}-test ${project_name}-lib)
+
+set_target_properties(${project_name}-lib ${project_name}-exe ${project_name}-test PROPERTIES
+        CXX_STANDARD 11
+        CXX_EXTENSIONS OFF
+        CXX_STANDARD_REQUIRED ON
+        )
+
+enable_testing()
+add_test(project-tests ${project_name}-test)
