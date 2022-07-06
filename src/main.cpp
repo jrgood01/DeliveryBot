@@ -10,11 +10,6 @@
 #include "oatpp/network/Server.hpp"
 #include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 
-int main() {
-    Accelerometer* robot_accelerometer = new Accelerometer();
-    run_server();
-}
-
 //Boilerplate form oatpp
 void run_server() {
     /* Create Router for HTTP requests routing */
@@ -35,4 +30,9 @@ void run_server() {
 
     /* Run server */
     server.run();
+}
+
+int main() {
+    Accelerometer* robot_accelerometer = new Accelerometer();
+    run_server();
 }
