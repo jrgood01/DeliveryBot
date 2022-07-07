@@ -43,8 +43,8 @@ add_dependencies(${project_name}-accelerometer-test ${project_name}-lib)
 add_executable(${project_name}-camera-test
         test/test_video_stream.cpp
         )
-target_link_libraries(${project_name}-accelerometer-test ${project_name}-lib)
-add_dependencies(${project_name}-accelerometer-test ${project_name}-lib)
+target_link_libraries(${project_name}-camera-test ${project_name}-lib)
+add_dependencies(${project_name}-camera-test ${project_name}-lib)
 
 set_target_properties(${project_name}-lib ${project_name}-exe PROPERTIES
         CXX_STANDARD 11
