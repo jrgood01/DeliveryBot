@@ -28,6 +28,8 @@ void* Camera::update_frame(void* p) {
 }
 
 Mat Camera::get_frame() {
+    if(!this->cur_frame)
+        return NULL;
     pthread_mutex_lock(&this->camera_data_mutex);
     return this->cur_frame;
     pthread_mutex_unlock(&this->camera_data_mutex);
