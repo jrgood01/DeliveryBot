@@ -7,7 +7,8 @@ class StaticContentController : public oatpp::web::server::HttpRequestHandler {
 public:
 
     std::shared_ptr<OutgoingResponse> handle(const std::shared_ptr<IncomingRequest>& request) override {
-        return ResponseFactory::createResponse(Status::CODE_200, "<h1>TEST</h1>");
+        oatpp::String response_str = oatpp::String::loadFromFile("src/api/static.index.html");
+        return ResponseFactory::createResponse(Status::CODE_200, response_str);
     }
 
 };
