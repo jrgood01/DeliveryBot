@@ -27,7 +27,7 @@ void run_server() {
 
     /* Create TCP connection provider */
     auto connectionProvider = oatpp::network::tcp::server::ConnectionProvider::createShared(
-            {"127.0.0.1", 8000, oatpp::network::Address::IP_4});
+            {"192.168.7.190", 8000, oatpp::network::Address::IP_4});
 
     /* Create server which takes provided TCP connections and passes them to HTTP connection handler */
     oatpp::network::Server server(connectionProvider, connectionHandler);

@@ -36,6 +36,7 @@ add_dependencies(${project_name}-exe ${project_name}-lib)
 
 add_executable(${project_name}-test
         test/test_accelerometer.cpp
+        test/test_video_stream.cpp
         )
 target_link_libraries(${project_name}-test ${project_name}-lib)
 add_dependencies(${project_name}-test ${project_name}-lib)
