@@ -4,7 +4,7 @@
 int main() {
     Camera* cam = new Camera();
     cam->begin_update_camera();
-    usleep(10000);
+    usleep(1000000);
     Mat frame = cam->get_frame();
     cv::FileStorage fs("cap.jpg", cv::FileStorage::WRITE);
     fs << "CamData" << frame;
