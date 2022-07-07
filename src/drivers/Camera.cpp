@@ -5,7 +5,7 @@
 #include <pthread.h>
 #include "Camera.h"
 
-using namespace cv2;
+using namespace cv;
 
 Camera::Camera() {
     VideoCapture capture(stoi(device_str));

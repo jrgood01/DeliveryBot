@@ -1,6 +1,10 @@
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/core/core.hpp>
+
 #ifndef __CAMERA_H_
 #define __CAMERA_H_
-
+using namespace cv;
 class Camera {
     static void* update_frame(void *p);
     private:
