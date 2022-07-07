@@ -1,3 +1,6 @@
+#ifndef __CAMERA_H_
+#define __CAMERA_H_
+
 class Camera {
     static void* update_frame(void *p);
     private:

@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD 11)
 add_library(${project_name}-lib
         src/drivers/Accelerometer.cpp
         src/drivers/Accelerometer.h
+        src/drivers/Camera.cpp
+        src/drivers/Camera.h
         )
 
 ## link libs

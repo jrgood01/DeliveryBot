@@ -6,6 +6,7 @@
 
 #include "global_state.h"
 #include "drivers/Accelerometer.h"
+#include "drivers/Camera.h"
 
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/network/Server.hpp"
@@ -40,6 +41,7 @@ void run_server() {
 
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
+    Camera* robot_camera = new Camera();
     oatpp::base::Environment::init();
     run_server();
     oatpp::base::Environment::destroy();
