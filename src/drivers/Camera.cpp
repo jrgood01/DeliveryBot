@@ -3,14 +3,21 @@
 #include <opencv2/core/core.hpp>
 #include <unistd.h>
 #include <pthread.h>
+#include <iostream>
+#include <stdio.h>
 #include "Camera.h"
 
 using namespace cv;
 
 Camera::Camera() {
-    VideoCapture capture('/dev/video0');
-    capture.set(CAP_PROP_FRAME_WIDTH, 1920);
-    capture.set(CAP_PROP_FRAME_HEIGHT, 1080);
+    int deviceID = 0;
+    int apiID = cv::CAP_ANY;
+    this->cap.open(deviceID, apiID);
+    if (!this->cap.isOpened()) {
+        cerr << "ERROR! Unable to open camera\n";
+        return -1;
+    }
+
 };
 
 void Camera::set_frame_rate(int rate) {
@@ -21,7 +28,10 @@ void* Camera::update_frame(void* p) {
     Camera *cam = (Camera*) p;
     while(1) {
         pthread_mutex_lock(&cam->camera_data_mutex);
-        cam->capture >> cam->cur_frame;
+        cam->cap.read(cap->cur_frame);
+        if (frame.empty()) {
+            cerr << "Error! no data from camera capture\n";
+        }
         pthread_mutex_unlock(&cam->camera_data_mutex);
         usleep(1000000 / cam->frame_rate);
     }
