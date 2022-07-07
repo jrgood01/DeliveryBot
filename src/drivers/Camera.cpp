@@ -12,12 +12,10 @@ using namespace cv;
 Camera::Camera() {
     int deviceID = 0;
     int apiID = cv::CAP_ANY;
-    this->cap.open(deviceID, apiID);
-    if (!this->cap.isOpened()) {
-        cerr << "ERROR! Unable to open camera\n";
-        return -1;
+    this->capture.open(deviceID, apiID);
+    if (!this->capture.isOpened()) {
+        std::cerr << "ERROR! Unable to open camera\n";
     }
-
 };
 
 void Camera::set_frame_rate(int rate) {
@@ -28,9 +26,9 @@ void* Camera::update_frame(void* p) {
     Camera *cam = (Camera*) p;
     while(1) {
         pthread_mutex_lock(&cam->camera_data_mutex);
-        cam->cap.read(cap->cur_frame);
-        if (frame.empty()) {
-            cerr << "Error! no data from camera capture\n";
+        cam->capture.read(cam->capture->cur_frame);
+        if (cam->capture.empty()) {
+            std::cerr << "Error! no data from camera capture\n";
         }
         pthread_mutex_unlock(&cam->camera_data_mutex);
         usleep(1000000 / cam->frame_rate);
