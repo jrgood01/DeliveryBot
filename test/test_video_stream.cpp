@@ -6,8 +6,8 @@ int main() {
     while(1) {
         cam->begin_update_camera();
         Mat frame = cam->get_frame();
-        cv::FileStorage fs("cap.jpg", cv::FileStorage::WRITE); // create FileStorage object
-        fs << frame; // command to save the data
-        fs.release(); // releasing the file.
+        cv::FileStorage fs("cap.jpg", cv::FileStorage::WRITE);
+        fs << "CamData" << frame;
+        fs.release();
     }
 }
