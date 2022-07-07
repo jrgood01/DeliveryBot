@@ -8,7 +8,7 @@
 using namespace cv;
 
 Camera::Camera() {
-    VideoCapture capture(std::__cxx11::stoi(device_str));
+    VideoCapture capture('/dev/video0');
     capture.set(CAP_PROP_FRAME_WIDTH, 1920);
     capture.set(CAP_PROP_FRAME_HEIGHT, 1080);
 };

@@ -12,7 +12,6 @@ class Camera {
         pthread_mutex_t camera_data_mutex;
         VideoCapture capture;
         Mat cur_frame;
-        const char* device_str = "/dev/video0";
         int frame_rate = 40;
     public:
         Camera();
