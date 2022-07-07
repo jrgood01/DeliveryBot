@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 set(project_name DeliveryBot)
-add_compile_options(pkg-config --cflags --libs opencv4)
+
 project(${project_name})
 
 set(CMAKE_CXX_STANDARD 11)
@@ -14,12 +14,14 @@ add_library(${project_name}-lib
         )
 
 ## link libs
-
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(oatpp 1.3.0 REQUIRED)
 
 target_link_libraries(${project_name}-lib
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-test
+        ${OpenCV_LIBS}
         )
 
 target_include_directories(${project_name}-lib PUBLIC src)
