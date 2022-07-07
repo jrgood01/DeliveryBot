@@ -5,6 +5,7 @@ set(project_name DeliveryBot)
 project(${project_name})
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
 add_library(${project_name}-lib
         src/drivers/Accelerometer.cpp
