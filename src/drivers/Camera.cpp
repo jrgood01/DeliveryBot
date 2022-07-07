@@ -27,10 +27,10 @@ void* Camera::update_frame(void* p) {
     while(1) {
         pthread_mutex_lock(&cam->camera_data_mutex);
         cam->capture.read(cam->cur_frame);
+        pthread_mutex_unlock(&cam->camera_data_mutex);
         if (cam->cur_frame.empty()) {
             std::cerr << "Error! no data from camera capture\n";
         }
-        pthread_mutex_unlock(&cam->camera_data_mutex);
         usleep(1000000 / cam->frame_rate);
     }
 }
