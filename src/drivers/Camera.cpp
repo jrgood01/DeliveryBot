@@ -10,9 +10,7 @@
 using namespace cv;
 
 Camera::Camera() {
-    int deviceID = 0;
-    int apiID = cv::CAP_ANY;
-    this->capture.open(deviceID, apiID);
+    this->capture.open("/dev/video0", cv::CAP_V4L);
     if (!this->capture.isOpened()) {
         std::cerr << "ERROR! Unable to open camera\n";
     }
