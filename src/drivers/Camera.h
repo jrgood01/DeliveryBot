@@ -17,3 +17,4 @@ class Camera {
         void set_frame_rate(int rate);
         void begin_update_camera(void* p);
 };
+#endif
