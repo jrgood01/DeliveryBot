@@ -19,6 +19,6 @@ class Camera {
         Mat get_frame();
         void register_frame_handler(void (*handler)());
         void set_frame_rate(int rate);
-        void begin_update_camera(void* p);
+        void begin_update_camera();
 };
 #endif

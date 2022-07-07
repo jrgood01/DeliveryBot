@@ -42,6 +42,8 @@ void run_server() {
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
     Camera* robot_camera = new Camera();
+    robot_accelerometer->begin_update_on_interval(100);
+    robot_camera->begin_update_camera();
     oatpp::base::Environment::init();
     run_server();
     oatpp::base::Environment::destroy();

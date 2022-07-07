@@ -33,7 +33,7 @@ Mat Camera::get_frame() {
     pthread_mutex_unlock(&this->camera_data_mutex);
 }
 
-void Camera::begin_update_camera(void* p) {
+void Camera::begin_update_camera() {
     if (update_thread_id) {
         pthread_cancel(update_thread_id);
     }
