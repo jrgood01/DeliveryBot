@@ -41,7 +41,7 @@ target_link_libraries(${project_name}-accelerometer-test ${project_name}-lib)
 add_dependencies(${project_name}-accelerometer-test ${project_name}-lib)
 
 add_executable(${project_name}-camera-test
-        test/test_video_stream.cpp.cpp
+        test/test_video_stream.cpp
         )
 target_link_libraries(${project_name}-accelerometer-test ${project_name}-lib)
 add_dependencies(${project_name}-accelerometer-test ${project_name}-lib)
