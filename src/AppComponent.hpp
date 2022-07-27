@@ -1,6 +1,6 @@
 /*
     This file is taken from oatpp yuv websocket stream example programs and has been modified for our use
-    The oriingal file is licensed under the Apache License, Version 2.0
+    The oringal file is licensed under the Apache License, Version 2.0
     See the original at: https://github.com/oatpp/example-yuv-websocket-stream/blob/master/src/AppComponent.hpp
 */
 
