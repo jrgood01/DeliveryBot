@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <system_error>
 #include <unistd.h>
-#include "accelerometer.hpp"
+#include "Accelerometer.h"
 
 Accelerometer::Accelerometer() {
     pthread_mutex_init(&this->sensor_data_mutex, NULL);
