@@ -7,7 +7,6 @@
 #ifndef AppComponent_hpp
 #define AppComponent_hpp
 
-#include "SwaggerComponent.hpp"
 
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 #include "oatpp/web/server/HttpRouter.hpp"
@@ -25,12 +24,7 @@
  */
 class AppComponent {
 public:
-  
-  /**
-   *  Swagger component
-   */
-  SwaggerComponent swaggerComponent;
-  
+
   /**
    *  Create ConnectionProvider component which listens on the port
    */

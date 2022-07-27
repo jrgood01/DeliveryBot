@@ -13,7 +13,7 @@
 #include <vector>
 #include <memory>
 
-#include "backend/V4LGrabber.hpp"
+#include "api/video_stream_backend/V4LGrabber.hpp"
 
 class ImageWSRegistry {
  public:

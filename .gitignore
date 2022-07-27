@@ -1,0 +1,7 @@
+DeliveryBot-exe
+DeliveryBot-accelerometer-test
+CMakeCache.txt
+*.a
+*.o 
+CMakeFiles/*
+*.cmake

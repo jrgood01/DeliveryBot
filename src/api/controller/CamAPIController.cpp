@@ -6,9 +6,10 @@
 #include "CamAPIController.hpp"
 
 #include <utility>
-#include <backend/Utils.hpp>
+#include <api/video_stream_backend/Utils.hpp>
 
 const char* apiv0::CamAPIController::TAGCam = "Cam";
+const char* WWW_FOLDER = "src/api/static";
 /*
  * Class-Logic
  */
@@ -19,18 +20,7 @@ apiv0::CamAPIController::~CamAPIController() {
 
 int apiv0::CamAPIController::v4lInit() {
   m_imageReceivers = ImageWSRegistry::createShared();
-  char device[12] = "/dev/videoX";
-
-  if(V4LGrabber::testDevice("/dev/video0") == 0) {
-    device[10] = '0';
-  } else if (V4LGrabber::testDevice("/dev/video1") == 0) {
-    device[10] = '1';
-  } else if (V4LGrabber::testDevice("/dev/video2") == 0) {
-    device[10] = '2';
-  } else {
-    OATPP_LOGE(TAGCam, "Non of the tested /dev/video devices could be opened");
-    return -1;
-  }
+  char device[12] = "/dev/video1";
 
   m_grabber = std::make_shared<V4LGrabber>(device, &CamAPIController::handle_frame, m_imageReceivers.get(), V4LGrabber::IO_METHOD_MMAP);
   m_imagewsConnectionHandler = oatpp::websocket::ConnectionHandler::createShared();
@@ -54,7 +44,6 @@ int apiv0::CamAPIController::v4lDeinit() {
  */
 
 void apiv0::CamAPIController::handle_frame(void *data, const void *image, int size) {
-  OATPP_LOGD("ImageStreamingWSController", "Handling Frame");
   ImageWSRegistry* registry = (ImageWSRegistry*)data;
   registry->distributeImage(image, size);
 }
@@ -62,7 +51,7 @@ void apiv0::CamAPIController::handle_frame(void *data, const void *image, int si
 std::shared_ptr<oatpp::web::protocol::http::outgoing::Response> apiv0::CamAPIController::stream() {
 
   try {
-    oatpp::String str = oatpp::String::loadFromFile(WWW_FOLDER "/cam/wsImageView.html");
+    oatpp::String str = oatpp::String::loadFromFile("src/api/static/index.html");
     auto rsp = createResponse(Status::CODE_200, str);
     rsp->putHeader("Content-Type", "text/html; charset=utf-8");
     return rsp;
@@ -75,7 +64,7 @@ std::shared_ptr<oatpp::web::protocol::http::outgoing::Response> apiv0::CamAPICon
 std::shared_ptr<oatpp::web::protocol::http::outgoing::Response> apiv0::CamAPIController::streamres(const oatpp::String &filename) {
   try {
     oatpp::String filteredName(basename(filename->c_str()));
-    oatpp::String folderName(WWW_FOLDER "/cam/");
+    oatpp::String folderName(WWW_FOLDER);
     oatpp::String str = oatpp::String::loadFromFile((folderName + filteredName)->c_str());
     auto rsp = createResponse(Status::CODE_200, str);
     rsp->putHeader("Content-Type", Utils::guessMimeType(filteredName));

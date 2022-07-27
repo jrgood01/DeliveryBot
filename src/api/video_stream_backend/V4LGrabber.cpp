@@ -174,7 +174,7 @@ void V4LGrabber::mainloop(V4LGrabber *parent)
     int r;
 
     std::chrono::steady_clock::time_point nextframeon = std::chrono::steady_clock::now();
-    nextframeon += std::chrono::milliseconds(75); // why only 8fps wth 75ms frametime? calculated are 13...
+    nextframeon += std::chrono::milliseconds(1); 
 
     FD_ZERO(&fds);
     FD_SET(parent->m_fd, &fds);
@@ -591,8 +591,8 @@ int V4LGrabber::init_device()
 
   fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 //  if (m_forceformat) {
-    fmt.fmt.pix.width       = 640;
-    fmt.fmt.pix.height      = 480;
+    fmt.fmt.pix.width       = 320;
+    fmt.fmt.pix.height      = 240;
     fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
     fmt.fmt.pix.field       = V4L2_FIELD_INTERLACED;
 
@@ -642,18 +642,20 @@ int V4LGrabber::close_device()
 
 int V4LGrabber::open_device()
 {
-  int rc = testDevice(m_devname);
+  const char* dev = "/dev/video0";
+  int rc = testDevice(dev);
+  
   if(rc) {
     return rc;
   }
 
-  OATPP_LOGD(TAG, "%s - Opening device", m_devname,m_devname);
+  OATPP_LOGD(TAG, "%s - Opening device", dev,dev);
   
-  m_fd = open(m_devname, O_RDWR /* required */ | O_NONBLOCK, 0);
+  m_fd = open(dev, O_RDWR /* required */ | O_NONBLOCK, 0);
 
   if (-1 == m_fd) {
     OATPP_LOGE(TAG, "%s - Cannot open '%s': %d, %s", m_devname,
-            m_devname, errno, strerror(errno));
+            dev, errno, strerror(errno));
     return EXIT_FAILURE;
   }
 
@@ -668,8 +670,8 @@ int V4LGrabber::testDevice(const char *device) {
 
   OATPP_LOGD(TAG, "Testing device '%s'", device);
 
-  if (-1 == stat(device, &st)) {
-    OATPP_LOGE(TAG, "Cannot identify '%s': %s (%d)", device, strerror(errno), errno);
+  if (-1 == stat("/dev/video1", &st)) {
+    OATPP_LOGE(TAG, "Cannot identify '%s': %s (%d)", "/dev/video1", strerror(errno), errno);
     return EXIT_FAILURE;
   }
 

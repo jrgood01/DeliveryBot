@@ -7,15 +7,15 @@
 #ifndef CONTROLLER_CAMAPICONTROLLER_HPP_
 #define CONTROLLER_CAMAPICONTROLLER_HPP_
 
-#include "dto/DTOs.hpp"
+#include "api/dto/DTOs.hpp"
 
-#include <oatpp-websocket/Handshaker.hpp>
+#include "oatpp-websocket/Handshaker.hpp"
 #include <oatpp/web/server/api/ApiController.hpp>
 #include <oatpp/core/macro/codegen.hpp>
 #include <oatpp/core/macro/component.hpp>
 
-#include "backend/ImageWSListener.hpp"
-#include "backend/V4LGrabber.hpp"
+#include "api/video_stream_backend/ImageWSListener.hpp"
+#include "api/video_stream_backend/V4LGrabber.hpp"
 
 /**
  * Sample Api Controller.
@@ -23,7 +23,6 @@
 
 namespace apiv0 {
 
-using namespace dtov0;
 
 class CamAPIController : public oatpp::web::server::api::ApiController {
  public:

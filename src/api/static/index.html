@@ -1,7 +1,164 @@
-<html>
-    <head>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type = "text/javascript">
+        //from https://gist.github.com/mauriciomassaia/b9e7ef6667a622b104c00249f77f8c03
 
-    </body>
+        w_pressed = false;
+        a_pressed = false;
+        d_pressed = false;
+        s_pressed = false;
+        function onKeyUp(e) {
+            if(e.key == "w") {
+                w_pressed = false;
+            } else if (e.key == "a") {
+                a_pressed = false;
+            } else if (e.key == "d") {
+                d_pressed = false;
+            } else if (e.key == "s") {
+                s_pressed = false;
+            }
+        }
+        function onKeyDown(e) {
+            if(e.key == "w") {
+                w_pressed = true;
+            } else if (e.key == "a") {
+                a_pressed = true;
+            } else if (e.key == "d") {
+                d_pressed = true;
+            } else if (e.key == "s") {
+                s_pressed = true;
+            }
+        }
+        window.onkeydown = onKeyDown;
+        window.onkeyup = onKeyUp;
+        let stream = true;
+        function ctrl(left, right) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/control"+"?L_POWER="+left+"&R_POWER="+right);
+            console.log("/control"+"?L_POWER="+left+"&R_POWER="+right);
+            xhr.send(null);
+        }
+
+        function updateLoop() {
+            let q = "-255";
+            let p = "255";
+            if (s_pressed) {
+                q = "255";
+                p = "-255";
+            }
+            if (!w_pressed && !s_pressed) {
+                ctrl("0", "0");
+            } else if (a_pressed) {
+                ctrl(q, p);
+            } else if (d_pressed) {
+                ctrl(p, q);
+            } else {
+                ctrl(p, p);
+            }
+        }
+        setInterval(updateLoop, 100);
+        function initStream() {
+
+            const loadingMessage = document.getElementById("loadingMessage");
+            const c = document.getElementById("streamdata");
+            const d = document.getElementById("dummy")
+            const dummy = d.getContext("2d");
+            const ctx = c.getContext("2d");
+            dummy.scale(3, 3);
+            ctx.scale(3, 3);
+
+
+            if ("WebSocket" in window) {
+                let proto = "wss";
+                if(window.location.protocol === "http:") {
+                    proto  = "ws";
+                }
+
+                let ws = new WebSocket(proto + "://" + window.location.hostname + ":" + window.location.port + "/v0/cam/stream/ws");
+                ws.binaryType = "arraybuffer";
+
+                ws.onopen = function() {
+                };
+                
+                ws.onmessage = function (evt) {
+                    const received_msg = new Uint8ClampedArray(evt.data);
+
+                    if(received_msg.length > 0 && stream === true) {
+                        loadingMessage.hidden = true;
+
+                        const imgData = ctx.createImageData(320, 240);
+                      
+                        let i, j, g;
+                        for (i = 0, j = 0, g = 0; i < imgData.data.length && j < received_msg.length; i += 8, j += 4, g+= 2) {
+                            const y1  = received_msg[j  ];
+                            const u   = received_msg[j+1];
+                            const y2  = received_msg[j+2];
+                            const v   = received_msg[j+3];
+
+                            imgData.data[i    ] = Math.min(255, Math.max(0, Math.floor(y1+1.4075*(v-128))));
+                            imgData.data[i + 1] = Math.min(255, Math.max(0, Math.floor(y1-0.3455*(u-128)-(0.7169*(v-128)))));
+                            imgData.data[i + 2] = Math.min(255, Math.max(0, Math.floor(y1+1.7790*(u-128))));
+                            imgData.data[i + 3] = 255;
+                            imgData.data[i + 4] = Math.min(255, Math.max(0, Math.floor(y2+1.4075*(v-128))));
+                            imgData.data[i + 5] = Math.min(255, Math.max(0, Math.floor(y2-0.3455*(u-128)-(0.7169*(v-128)))));
+                            imgData.data[i + 6] = Math.min(255, Math.max(0, Math.floor(y2+1.7790*(u-128))));
+                            imgData.data[i + 7] = 255;
+                        }
+                        dummy.putImageData(imgData, 0, 0);
+                        ctx.drawImage(c, 0, 0);
+                        //ctx.putImageData(imgData, 0, 0);
+                        
+                        
+                        
+                    }
+                };
+
+                ws.onclose = function() {
+
+                };
+            } else {
+                loadingMessage.innerText = "Unable to access video stream (please make sure your browser supports canvas and websockets)";
+            }
+        }
+    </script>
+    <style>
+        body {
+            color: #333;
+            max-width: 640px;
+            margin: 0 auto;
+            position: relative;
+            background-size: 100%;
+        }
+
+        #loadingMessage {
+            text-align: center;
+            padding: 40px;
+            background: #f7f7f7;
+            border-radius: 10px;
+        }
+
+        #dummmy {
+            opacity: 0;
+        }
+
+        #streamdata {
+            border-radius: 10px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Webstream</title>
+</head>
+<body>
+<div id="loadingMessage">Loading video ...</div>
+<canvas id="streamdata" width="640" height="480">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+<canvas id="dummy" width="10000px" height="10000px">
+</canvas>
+</canvas>
+<script>
+    initStream();
+</script>
+</body>
 </html>

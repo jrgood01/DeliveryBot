@@ -41,3 +41,4 @@ oatpp::String Utils::guessMimeType(const oatpp::String &filename) {
 
   }
   return "application/octet-stream";
+}

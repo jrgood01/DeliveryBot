@@ -3,17 +3,19 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <iostream>
-#include <ifaddr>
 
 #include "global_state.h"
 #include "drivers/Accelerometer.h"
-#include "drivers/Camera.h"
 
-#include "./controller/CamAPIController.hpp"
 #include "./AppComponent.hpp"
 
-#include "oatpp-swagger/Controller.hpp"
 #include "oatpp/network/Server.hpp"
+#include "api/controller/CamAPIController.hpp"
+#include "api/controller/MotorController.hpp"
+#include "oatpp/web/server/HttpConnectionHandler.hpp"
+
+#include "oatpp/network/Server.hpp"
+#include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 
 //Boilerplate method from oatpp
 void run_server() {
@@ -22,7 +24,7 @@ void run_server() {
   
   oatpp::web::server::api::Endpoints docEndpoints;
   docEndpoints.append(router->addController(apiv0::CamAPIController::createShared())->getEndpoints());
-  router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
+  router->route("GET", "/control", std::make_shared<apiv0::MotorController>());
   oatpp::network::Server server(components.serverConnectionProvider.getObject(),
                                 components.serverConnectionHandler.getObject());
   server.run();
@@ -30,9 +32,9 @@ void run_server() {
 
 int main() {
     Accelerometer* robot_accelerometer = new Accelerometer();
-    Camera* robot_camera = new Camera();
+
     robot_accelerometer->begin_update_on_interval(100);
-    robot_camera->begin_update_camera();
+
     oatpp::base::Environment::init();
     run_server();
     oatpp::base::Environment::destroy();
