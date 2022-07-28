@@ -19,17 +19,30 @@ int power_L_buffer = 0;
 int power_R_buffer = 0;
 int power_buffer_ready = false;
 
-int echoPin = 3;
-int trigPin = 4;
+int center_echoPin = 3;
+int center_trigPin = 4;
+int left_echoPin = A0;
+int left_trigPin = 5;
+int right_echoPin = 8;
+int right_trigPin = A9;
+
 void setup() {
   pinMode(12, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(A8, OUTPUT);
+  digitalWrite(2, HIGH);
+  digitalWrite(A8, HIGH);
   digitalWrite(12, HIGH);
   Serial.begin(9600);
   for (int i = 6; i <= 52; i++) {
     pinMode(i, OUTPUT);
   }
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(center_trigPin, OUTPUT);
+  pinMode(center_echoPin, INPUT);
+  pinMode(left_trigPin, OUTPUT);
+  pinMode(left_echoPin, INPUT);
+  pinMode(right_trigPin, OUTPUT);
+  pinMode(right_echoPin, INPUT);
 }
 
 void setFLPower(int power, bool forwards) {
@@ -111,7 +124,19 @@ void apply_state_transition(int input) {
   }
 }
 
-float distance() {
+float distance(int sensor) {
+  int trigPin = 0;
+  int echoPin = 0;
+  if (sensor == 0) {
+    trigPin = center_trigPin;
+    echoPin = center_echoPin;
+  } else if (sensor == -1) {
+    trigPin = left_trigPin;
+    echoPin = left_echoPin;
+  } else if (sensor == 1) {
+    trigPin = right_trigPin;
+    echoPin = right_echoPin;
+  }
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
@@ -152,28 +177,37 @@ void sweep_left() {
 
 void sweep_right() {
   left = 255;
-  right = 50;
+  right = 120;
 }
 
 int cycles = 0;
-void autonomous_loop() {
-  Serial.println((distance()));
-  Serial.println();
-  if (distance() < 30) {
+int L_POWER = 200;
+int R_POWER = 200;
+void autonomous_loop() {  
+  int lDistance = distance(-1);
+  int rDistance = distance(1);
+  int cDistance = distance(0);
+  if (cDistance < 30 || rDistance < 30 || lDistance < 30) {
     apply_power(-255, -255);
     delay(1000);
-    sweepDir = !sweepDir;
+    if (rDistance < lDistance){
+      apply_power(255, -255);
+      delay(2000);
+    } else {
+      apply_power(-255, 255);
+      delay(2000);
+    }
   }
-  Serial.println(cycles);
-  if(sweepDir)
-    sweep_left();
-   else
-    sweep_right();
-
-   if (cycles > 300) {
-    sweepDir = !sweepDir;
-    cycles = 0;
-   }
-   apply_power(left, right);
-   cycles +=1;
+  if (lDistance < rDistance && lDistance < 100) {
+    apply_power(255, 150);
+  } else if (rDistance > lDistance && rDistance < 100) {
+    apply_power(150, 255);
+  } else {
+    apply_power(200, 200);
+  }
+  Serial.print(lDistance);
+  Serial.print(":");
+  Serial.print(cDistance);
+  Serial.print(":");
+  Serial.println(rDistance);
 }
