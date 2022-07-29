@@ -90,6 +90,27 @@ void motor_break() {
   digitalWrite(11, LOW);
 }
 
+float distance(int sensor) {
+  int trigPin = 0;
+  int echoPin = 0;
+  if (sensor == 0) {
+    trigPin = center_trigPin;
+    echoPin = center_echoPin;
+  } else if (sensor == -1) {
+    trigPin = left_trigPin;
+    echoPin = left_echoPin;
+  } else if (sensor == 1) {
+    trigPin = right_trigPin;
+    echoPin = right_echoPin;
+  }
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  float duration_us = pulseIn(echoPin, HIGH);
+  float distance_cm = 0.017 * duration_us;
+  return distance_cm;
+}
+
 void apply_state_transition(int input) {
   if (input == 10)
     return;
@@ -100,6 +121,14 @@ void apply_state_transition(int input) {
       apply_power(0, 0);
     } else if (input == 'B') {
       state = TOGGLE_1;
+    } else if (input == 'T') {
+      Serial.flush();
+      
+      Serial.print(distance(-1));
+      Serial.print(':');
+      Serial.print(distance(0));
+      Serial.print(':');
+      Serial.print(distance(1));
     }
   } else if (state == SET_POWER_1) {
     if (input != -1) {
@@ -124,26 +153,6 @@ void apply_state_transition(int input) {
   }
 }
 
-float distance(int sensor) {
-  int trigPin = 0;
-  int echoPin = 0;
-  if (sensor == 0) {
-    trigPin = center_trigPin;
-    echoPin = center_echoPin;
-  } else if (sensor == -1) {
-    trigPin = left_trigPin;
-    echoPin = left_echoPin;
-  } else if (sensor == 1) {
-    trigPin = right_trigPin;
-    echoPin = right_echoPin;
-  }
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  float duration_us = pulseIn(echoPin, HIGH);
-  float distance_cm = 0.017 * duration_us;
-  return distance_cm;
-}
 void loop() {
   int serial_dat = -1;
   if (power_buffer_ready) {
@@ -163,6 +172,7 @@ void loop() {
     autonomous_loop();
   }
 }
+
 //don't go over 150 for power
 //if starts going really quick
 
