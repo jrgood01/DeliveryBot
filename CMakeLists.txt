@@ -11,11 +11,11 @@ set(CXXFLAGS " -lCppLinuxSerial")
 add_compile_options(-lCppLinuxSerial)
 
 add_library(${project_name}-lib
-        src/drivers/Accelerometer.cpp
-        src/drivers/Accelerometer.h
         src/api/controller/CamAPIController.hpp
         src/api/controller/CamAPIController.cpp
         src/api/controller/MotorController.hpp
+        src/api/controller/ModeController.hpp
+        src/api/controller/TelemetryController.hpp
         src/api/dto/DTOs.hpp
         src/api/video_stream_backend/ImageWSListener.cpp
         src/api/video_stream_backend/ImageWSListener.hpp
@@ -50,11 +50,6 @@ add_executable(${project_name}-exe
 target_link_libraries(${project_name}-exe ${project_name}-lib)
 add_dependencies(${project_name}-exe ${project_name}-lib)
 
-add_executable(${project_name}-accelerometer-test
-        test/test_accelerometer.cpp
-        )
-target_link_libraries(${project_name}-accelerometer-test ${project_name}-lib)
-add_dependencies(${project_name}-accelerometer-test ${project_name}-lib)
 
 set_target_properties(${project_name}-lib ${project_name}-exe PROPERTIES
         CXX_STANDARD 11

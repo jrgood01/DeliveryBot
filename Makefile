@@ -122,19 +122,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DeliveryBot-accelerometer-test
-
-# Build rule for target.
-DeliveryBot-accelerometer-test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DeliveryBot-accelerometer-test
-.PHONY : DeliveryBot-accelerometer-test
-
-# fast build rule for target.
-DeliveryBot-accelerometer-test/fast:
-	$(MAKE) -f CMakeFiles/DeliveryBot-accelerometer-test.dir/build.make CMakeFiles/DeliveryBot-accelerometer-test.dir/build
-.PHONY : DeliveryBot-accelerometer-test/fast
-
-#=============================================================================
 # Target rules for targets named DeliveryBot-exe
 
 # Build rule for target.
@@ -268,33 +255,6 @@ src/api/video_stream_backend/V4LGrabber.cpp.s:
 	$(MAKE) -f CMakeFiles/DeliveryBot-lib.dir/build.make CMakeFiles/DeliveryBot-lib.dir/src/api/video_stream_backend/V4LGrabber.cpp.s
 .PHONY : src/api/video_stream_backend/V4LGrabber.cpp.s
 
-src/drivers/Accelerometer.o: src/drivers/Accelerometer.cpp.o
-
-.PHONY : src/drivers/Accelerometer.o
-
-# target to build an object file
-src/drivers/Accelerometer.cpp.o:
-	$(MAKE) -f CMakeFiles/DeliveryBot-lib.dir/build.make CMakeFiles/DeliveryBot-lib.dir/src/drivers/Accelerometer.cpp.o
-.PHONY : src/drivers/Accelerometer.cpp.o
-
-src/drivers/Accelerometer.i: src/drivers/Accelerometer.cpp.i
-
-.PHONY : src/drivers/Accelerometer.i
-
-# target to preprocess a source file
-src/drivers/Accelerometer.cpp.i:
-	$(MAKE) -f CMakeFiles/DeliveryBot-lib.dir/build.make CMakeFiles/DeliveryBot-lib.dir/src/drivers/Accelerometer.cpp.i
-.PHONY : src/drivers/Accelerometer.cpp.i
-
-src/drivers/Accelerometer.s: src/drivers/Accelerometer.cpp.s
-
-.PHONY : src/drivers/Accelerometer.s
-
-# target to generate assembly for a file
-src/drivers/Accelerometer.cpp.s:
-	$(MAKE) -f CMakeFiles/DeliveryBot-lib.dir/build.make CMakeFiles/DeliveryBot-lib.dir/src/drivers/Accelerometer.cpp.s
-.PHONY : src/drivers/Accelerometer.cpp.s
-
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -322,33 +282,6 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/DeliveryBot-exe.dir/build.make CMakeFiles/DeliveryBot-exe.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-test/test_accelerometer.o: test/test_accelerometer.cpp.o
-
-.PHONY : test/test_accelerometer.o
-
-# target to build an object file
-test/test_accelerometer.cpp.o:
-	$(MAKE) -f CMakeFiles/DeliveryBot-accelerometer-test.dir/build.make CMakeFiles/DeliveryBot-accelerometer-test.dir/test/test_accelerometer.cpp.o
-.PHONY : test/test_accelerometer.cpp.o
-
-test/test_accelerometer.i: test/test_accelerometer.cpp.i
-
-.PHONY : test/test_accelerometer.i
-
-# target to preprocess a source file
-test/test_accelerometer.cpp.i:
-	$(MAKE) -f CMakeFiles/DeliveryBot-accelerometer-test.dir/build.make CMakeFiles/DeliveryBot-accelerometer-test.dir/test/test_accelerometer.cpp.i
-.PHONY : test/test_accelerometer.cpp.i
-
-test/test_accelerometer.s: test/test_accelerometer.cpp.s
-
-.PHONY : test/test_accelerometer.s
-
-# target to generate assembly for a file
-test/test_accelerometer.cpp.s:
-	$(MAKE) -f CMakeFiles/DeliveryBot-accelerometer-test.dir/build.make CMakeFiles/DeliveryBot-accelerometer-test.dir/test/test_accelerometer.cpp.s
-.PHONY : test/test_accelerometer.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -358,7 +291,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
-	@echo "... DeliveryBot-accelerometer-test"
 	@echo "... DeliveryBot-exe"
 	@echo "... DeliveryBot-lib"
 	@echo "... src/api/controller/CamAPIController.o"
@@ -373,15 +305,9 @@ help:
 	@echo "... src/api/video_stream_backend/V4LGrabber.o"
 	@echo "... src/api/video_stream_backend/V4LGrabber.i"
 	@echo "... src/api/video_stream_backend/V4LGrabber.s"
-	@echo "... src/drivers/Accelerometer.o"
-	@echo "... src/drivers/Accelerometer.i"
-	@echo "... src/drivers/Accelerometer.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... test/test_accelerometer.o"
-	@echo "... test/test_accelerometer.i"
-	@echo "... test/test_accelerometer.s"
 .PHONY : help
 
 
